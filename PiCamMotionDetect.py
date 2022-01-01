@@ -205,6 +205,10 @@ if __name__ == '__main__':
 					    "confidence": f'{confidences[idx]*100:7.2f}',
 					    "timestamp": timestamp.strftime("%Y_%m_%d_%H_%M_%S_%f")
 					})
+					client = mqtt.Client("RPI_Courier")
+					client.connect(conf['broker_address'])
+					client.publish("CourierNet/delivery",payload=msg)
+
 
 					# update the last uploaded time stamp and reset the motion
 					lastOutput = timestamp
