@@ -13,5 +13,5 @@
 	"model": "./models/0.0/0.0.tflite",
 	"num_threads": 1,
 	"label_file": "./models/0.0/labels.txt",
-	"broker_address": "192.168.1.70"
+	"broker_address": "YOUR_BROKER_ADDRESS"
 }
