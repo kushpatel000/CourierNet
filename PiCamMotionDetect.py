@@ -41,6 +41,30 @@ def load_config():
 	warnings.filterwarnings('ignore')
 	conf = json.load(open(args["conf"]))
 
+	# check for required keywords:
+	keys = [
+		"min_upload_seconds",
+		"min_motion_frames",
+		"camera_warmup_time",
+		"delta_thresh",
+		"resolution",
+		"fps",
+		"min_area",
+		"model",
+		"label_file",
+		"broker_address"
+	]
+	kill_flag = False
+	print("[INFO] Checking configuration file for required keys...")
+	for key in keys:
+		if key in conf:
+			print(f"  [\u2713]" {key})
+		else:
+			print(f"  [x]" {key})
+			kill_flag = True
+	if kill_flag:
+		fatal_error("Configuration file is missing keys")
+
 	return conf
 
 def load_labels(path):
@@ -196,18 +220,19 @@ if __name__ == '__main__':
 					idx, confidences, comp_time = compute_results(frame, model, model_details)
 
 					# export image
-					if labels[idx] != "None":
-						export_image(frame, timestamp, labels[idx], confidences[idx], comp_time)
+					export_image(frame, timestamp, labels[idx], confidences[idx], comp_time)
 
 					# push notification to smart home
-					msg = json.dumps({
-					    "carrier":labels[idx],
-					    "confidence": f'{confidences[idx]*100:7.2f}',
-					    "timestamp": timestamp.strftime("%Y_%m_%d_%H_%M_%S_%f")
-					})
-					client = mqtt.Client("RPI_Courier")
-					client.connect(conf['broker_address'])
-					client.publish("CourierNet/delivery",payload=msg)
+					if labels[idx] != "None":
+
+						msg = json.dumps({
+						    "carrier":labels[idx],
+						    "confidence": f'{confidences[idx]*100:7.2f}',
+						    "timestamp": timestamp.strftime("%Y_%m_%d_%H_%M_%S_%f")
+						})
+						client = mqtt.Client("RPI_Courier")
+						client.connect(conf['broker_address'])
+						client.publish("CourierNet/delivery",payload=msg)
 
 
 					# update the last uploaded time stamp and reset the motion
