@@ -58,9 +58,9 @@ def load_config():
 	print("[INFO] Checking configuration file for required keys...")
 	for key in keys:
 		if key in conf:
-			print(f"  [\u2713]" {key})
+			print(f"  [\u2713] {key}" )
 		else:
-			print(f"  [x]" {key})
+			print(f"  [x] {key}" )
 			kill_flag = True
 	if kill_flag:
 		fatal_error("Configuration file is missing keys")

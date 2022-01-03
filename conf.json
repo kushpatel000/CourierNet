@@ -1,17 +1,13 @@
 {
-	"show_video": false,
-	"use_dropbox": false,
-	"dropbox_access_token": "None",
-	"dropbox_base_path": "None",
 	"min_upload_seconds": 6.0,
 	"min_motion_frames": 4,
 	"camera_warmup_time": 2.5,
 	"delta_thresh": 5,
-	"resolution": [320,320],
+	"resolution": [244,244],
 	"fps": 8,
 	"min_area": 5000,
-	"model": "./models/0.0/0.0.tflite",
+	"model": "./models/1.0/1.0.tflite",
 	"num_threads": 1,
-	"label_file": "./models/0.0/labels.txt",
+	"label_file": "./models/1.0/labels.txt",
 	"broker_address": "YOUR_BROKER_ADDRESS"
 }
