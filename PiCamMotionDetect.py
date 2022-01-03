@@ -89,8 +89,8 @@ def load_interpreter(model_path="./models/0.0/0.0.tflite",nt=None):
 	# input_height, input width = input_details[0]['shape'][1:3]
 
 	details = {
-		"input_dims":   input_details[0]['shape'][1:3], # height, width
-		"input_index":  input_details[0]['index'],
+		"input_dims":    input_details[0]['shape'][1:3], # height, width
+		"input_index":   input_details[0]['index'],
 		"output_index": output_details[0]['index']
 	}
 	return interpreter, details
