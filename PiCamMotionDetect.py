@@ -228,7 +228,8 @@ if __name__ == '__main__':
 						msg = json.dumps({
 						    "carrier":labels[idx],
 						    "confidence": f'{confidences[idx]*100:7.2f}',
-						    "timestamp": timestamp.strftime("%Y_%m_%d_%H_%M_%S_%f")
+						    # "timestamp": timestamp.strftime("%Y_%m_%d_%H_%M_%S_%f")
+							"timestamp": timestamp.isoformat()
 						})
 						client = mqtt.Client("RPI_Courier")
 						client.connect(conf['broker_address'])
