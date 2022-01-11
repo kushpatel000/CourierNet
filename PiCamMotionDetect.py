@@ -5,7 +5,6 @@ Motion Detect from this recipe:
 	https://www.pyimagesearch.com/2015/06/01/home-surveillance-and-motion-detection-with-the-raspberry-pi-python-and-opencv/
 '''
 
-# from pyimagesaearch.tempimage import TempImage
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 
