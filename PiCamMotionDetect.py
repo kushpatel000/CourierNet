@@ -95,9 +95,9 @@ def load_interpreter(model_path="./models/0.0/0.0.tflite",nt=None):
 	return interpreter, details
 
 def make_capture_dirs():
-	if not os.path.exist("./captures"):
+	if not os.path.exists("./captures"):
 		os.mkdir("./captures")
-	if not os.path.exist("./grays"):
+	if not os.path.exists("./grays"):
 		os.mkdir("./grays")
 
 
