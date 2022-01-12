@@ -94,6 +94,13 @@ def load_interpreter(model_path="./models/0.0/0.0.tflite",nt=None):
 	}
 	return interpreter, details
 
+def make_capture_dirs():
+	if not os.path.exist("./captures"):
+		os.mkdir("./captures")
+	if not os.path.exist("./grays"):
+		os.mkdir("./grays")
+
+
 def init_camera():
 # initialize the camera and grab a reference to the raw camera capture
 	camera = PiCamera()
@@ -144,6 +151,9 @@ if __name__ == '__main__':
 
 	# load and start camera
 	camera, rawCapture = init_camera()
+
+	# create capture folders if not existing
+	make_capture_dirs()
 
 	# allow the camera to warmup, then initialize the average frame,
 	# last uploaded timestamp, and frame motion counter
