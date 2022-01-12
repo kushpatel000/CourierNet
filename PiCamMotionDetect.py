@@ -26,8 +26,8 @@ import paho.mqtt.client as mqtt
 
 
 def fatal_error(msg):
-		print(msg)
-		exit(1)
+	print(msg)
+	exit(1)
 
 def load_config():
 	# construct the argument parser and parse the arguments
@@ -121,16 +121,17 @@ def compute_results(image, model, model_details):
 
 	return idx, confidences, comp_time
 
-def export_image(frame, timestamp, label, confidence, comp_time):
+def export_image(image, folder, timestamp, label, confidence, comp_time):
 	# replace above code to output frames always
 	ts = timestamp.strftime("%Y_%m_%d_%H_%M_%S_%f")
 	name = "capture_" + ts + '.jpg'
-	path = os.path.join( "./captures", name )
+	path = os.path.join( "./", folder, name )
 
 	# output image jpg
-	cv2.imwrite(path,frame)
+	cv2.imwrite(path,image)
 	# write results to log
-	with open("./captures/captures.log" ,'a') as wrtr:
+	# with open("./captures/captures.log" ,'a') as wrtr:
+	with open( os.path.join( "./", folder, "captures.log" ), 'a' ) as wrtr:
 		wrtr.write(f"{ts:26s} {label:6s} {confidence*100:0.2f} {comp_time:f}\n")
 
 if __name__ == '__main__':
@@ -218,8 +219,10 @@ if __name__ == '__main__':
 					# process image against model
 					idx, confidences, comp_time = compute_results(frame, model, model_details)
 
-					# export image
-					export_image(frame, timestamp, labels[idx], confidences[idx], comp_time)
+					# export raw image
+					export_image(frame, "captures", timestamp, labels[idx], confidences[idx], comp_time)
+					# export gray difference
+					export_image(frameDelta, "grays", timestamp, labels[idx], confidences[idx], comp_time)
 
 					# push notification to smart home
 					if labels[idx] != "None":
